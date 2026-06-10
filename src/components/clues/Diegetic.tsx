@@ -235,41 +235,67 @@ function YutRecord({ clue }: { clue: TokensClue }) {
   )
 }
 
-/** 바위에 새긴 윷판 — 출발 칸의 말 + 길 14칸의 새김 숫자(보드-워크). */
+/** 바위에 새긴 윷판 — 실제 윷판 29자리(둘레 20 + 가위표 대각 8 + 방).
+ *  자리 번호 규약(maker ops.ts 와 동일): 0=참먹이(우하, 출발·도착) · 1~19 둘레 반시계
+ *  (모서리 5·10·15) · 20·21=앞모(5)→방 · 22=방 · 23·24=뒷모(10)→방 · 25·26=방→15 ·
+ *  27·28=방→참먹이. 토큰 tag=자리 번호, text=새김 글자. 모서리·방은 굵은 겹원(실물 윷판). */
 function YutBoard({ clue }: { clue: TokensClue }) {
-  const cx = 115, cy = 92, r = 58
-  const pos = (deg: number, rad: number): [number, number] => {
-    const a = (deg * Math.PI) / 180
-    return [cx + rad * Math.cos(a), cy + rad * Math.sin(a)]
+  const SE: [number, number] = [193, 168], NE: [number, number] = [193, 32]
+  const NW: [number, number] = [37, 32], SW: [number, number] = [37, 168]
+  const C: [number, number] = [115, 100]
+  const lerp = (a: [number, number], b: [number, number], t: number): [number, number] =>
+    [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]
+  // 자리 번호 → 좌표
+  const at = (i: number): [number, number] => {
+    if (i === 0) return SE
+    if (i <= 5) return lerp(SE, NE, i / 5)        // 우변 ↑ (5=앞모 NE)
+    if (i <= 10) return lerp(NE, NW, (i - 5) / 5)  // 상변 ← (10=뒷모 NW)
+    if (i <= 15) return lerp(NW, SW, (i - 10) / 5) // 좌변 ↓ (15=SW)
+    if (i <= 19) return lerp(SW, SE, (i - 15) / 5) // 하변 →
+    if (i === 20) return lerp(NE, C, 1 / 3)
+    if (i === 21) return lerp(NE, C, 2 / 3)
+    if (i === 22) return C                          // 방
+    if (i === 23) return lerp(NW, C, 1 / 3)
+    if (i === 24) return lerp(NW, C, 2 / 3)
+    if (i === 25) return lerp(C, SW, 1 / 3)
+    if (i === 26) return lerp(C, SW, 2 / 3)
+    if (i === 27) return lerp(C, SE, 1 / 3)
+    return lerp(C, SE, 2 / 3)                       // 28
   }
-  const cells = clue.tokens.map((t, i) => {
-    const deg = -90 + (i + 1) * 24 // 출발(맨 위)에서 시계방향
-    return { t, deg, p: pos(deg, r), lab: pos(deg, r + 15) }
-  })
-  const arrowFrom = pos(-82, r + 14), arrowTo = pos(-62, r + 14)
-  const arrowAng = (Math.atan2(arrowTo[1] - arrowFrom[1], arrowTo[0] - arrowFrom[0]) * 180) / Math.PI
-  const start = pos(-90, r)
+  const BIG = new Set([0, 5, 10, 15, 22]) // 참먹이·모서리·방 — 실물 윷판의 굵은 자리
+  const stations = clue.tokens
+    .map((t) => ({ ch: t.text, i: Number(t.tag ?? '-1') }))
+    .filter((s) => s.i >= 0 && s.i <= 28)
   return (
-    <Scene vb="0 0 230 178">
-      <rect x="0" y="0" width="230" height="178" rx="4" fill="#3a342c" />
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#241f1a" strokeWidth="7" opacity="0.55" />
-      {/* 출발 칸 + 말 */}
-      <circle cx={start[0]} cy={start[1]} r="11.5" fill="#2a2724" stroke="#c9a14a" strokeWidth="1.6" />
-      <text x={start[0]} y={start[1] - 18} textAnchor="middle" fontSize="8.5" fill="#e0d4b4">출발</text>
-      <circle cx={start[0]} cy={start[1]} r="5.2" fill={AMBER} stroke="#4a2c10" strokeWidth="1.2" />
-      <circle cx={start[0] - 1.4} cy={start[1] - 1.6} r="1.4" fill="#f4dcb4" opacity="0.8" />
-      {/* 진행 방향 */}
-      <path d={`M${arrowFrom[0]} ${arrowFrom[1]} A${r + 14} ${r + 14} 0 0 1 ${arrowTo[0]} ${arrowTo[1]}`}
-        fill="none" stroke="#c2b698" strokeWidth="1.6" />
-      <polygon points="0,-3 6.5,0 0,3" transform={`translate(${arrowTo[0]} ${arrowTo[1]}) rotate(${arrowAng})`} fill="#c2b698" />
-      {/* 길 14칸 */}
-      {cells.map(({ t, p, lab }, i) => (
-        <g key={i}>
-          <circle cx={p[0]} cy={p[1]} r="10.5" fill="#332e28" stroke="#8a7c5c" strokeWidth="1" />
-          <text x={p[0]} y={p[1] + 3.8} textAnchor="middle" fontSize="11" fontFamily="serif" fontWeight="700" fill={HANJI}>{t.text}</text>
-          <text x={lab[0]} y={lab[1] + 2.4} textAnchor="middle" fontSize="6.5" fill="#a89a78">{(t.tag ?? '').replace(/\D+/g, '')}</text>
-        </g>
-      ))}
+    <Scene vb="0 0 230 200">
+      <rect x="0" y="0" width="230" height="200" rx="4" fill="#3a342c" />
+      {/* 패인 길 홈 — 네모 둘레 + 가위표 대각(지름길) */}
+      <path d={`M${SE[0]} ${SE[1]} L${NE[0]} ${NE[1]} L${NW[0]} ${NW[1]} L${SW[0]} ${SW[1]} Z`}
+        fill="none" stroke="#241f1a" strokeWidth="6" opacity="0.55" strokeLinejoin="round" />
+      <path d={`M${NE[0]} ${NE[1]} L${SW[0]} ${SW[1]} M${NW[0]} ${NW[1]} L${SE[0]} ${SE[1]}`}
+        stroke="#241f1a" strokeWidth="5" opacity="0.5" strokeLinecap="round" />
+      {/* 진행 방향(반시계) — 우변을 따라 위로 */}
+      <path d={`M${SE[0] + 14} ${SE[1] - 34} L${SE[0] + 14} ${SE[1] - 66}`} stroke="#c2b698" strokeWidth="1.6" />
+      <polygon points="-3,0 3,0 0,-6.5" transform={`translate(${SE[0] + 14} ${SE[1] - 66})`} fill="#c2b698" />
+      {/* 29자리 */}
+      {stations.map(({ ch, i }) => {
+        const [x, y] = at(i)
+        const big = BIG.has(i)
+        return (
+          <g key={i}>
+            <circle cx={x} cy={y} r={big ? 11 : 7.5} fill="#332e28" stroke="#8a7c5c" strokeWidth={big ? 1.6 : 1} />
+            {big && <circle cx={x} cy={y} r="13.8" fill="none" stroke="#8a7c5c" strokeWidth="0.8" opacity="0.7" />}
+            <text x={x} y={y + (big ? 3.6 : 2.8)} textAnchor="middle" fontSize={big ? 10 : 7.5}
+              fontFamily="serif" fontWeight="700" fill={HANJI}>{ch}</text>
+          </g>
+        )
+      })}
+      {/* 참먹이 라벨 + 말 — 말은 참먹이 곁에서 출발을 기다린다 */}
+      <text x={SE[0] - 1} y={SE[1] + 26} textAnchor="middle" fontSize="8.5" fill="#e0d4b4">참먹이 — 출발·도착</text>
+      <circle cx={SE[0] + 16} cy={SE[1] - 14} r="5.2" fill={AMBER} stroke="#4a2c10" strokeWidth="1.2" />
+      <circle cx={SE[0] + 14.6} cy={SE[1] - 15.6} r="1.4" fill="#f4dcb4" opacity="0.8" />
+      {/* 방 라벨 */}
+      <text x={C[0]} y={C[1] - 17} textAnchor="middle" fontSize="8" fill="#a89a78">방</text>
     </Scene>
   )
 }
