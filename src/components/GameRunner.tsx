@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { ClueMap, GameConfig, Hotspot } from '../engine/types'
 import { useGame } from '../engine/useGame'
 import { evalCondition } from '../engine/conditions'
-import { useCrowAmbience } from '../engine/ambience'
+import { useCrowAmbience, useGeomungo } from '../engine/ambience'
 import { CLUE_KEY_BY_LABEL } from './Objects'
 import { RoomView } from './RoomView'
 import { Hud } from './Hud'
@@ -30,6 +30,8 @@ export function GameRunner({ config, clueMap }: { config: GameConfig; clueMap: C
     state.status === 'playing' && state.roomId === 'room-byeoldang' && !pouchSolved,
     pouchSolved,
   )
+  // 거문고 — 성긴 가락 배경(전 구획) + 해정 순간 두 탄현(sting).
+  const geomungo = useGeomungo(state.status === 'playing')
 
   // 방 진입 특수효과(config.rooms[].entryEffect)
   useEffect(() => {
@@ -180,6 +182,7 @@ export function GameRunner({ config, clueMap }: { config: GameConfig; clueMap: C
               onReveal={() => actions.revealHint(pz.id)}
               onSolve={() => {
                 fire(pz.reward?.effect) // 해제 특수효과(reward.effect)
+                geomungo.sting() // 해정 탄현 — 자물쇠가 풀리는 소리의 보상
                 actions.solve(pz.id)
               }}
               onClose={actions.close}
