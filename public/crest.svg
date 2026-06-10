@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 호패 + 까마귀 — 부르지 못한 말 -->
+  <rect x="20" y="14" width="24" height="46" rx="4" fill="#efe6d0" stroke="#2e6e4e" stroke-width="2.6"/>
+  <rect x="23.5" y="17.5" width="17" height="39" rx="2.4" fill="none" stroke="#b03a2e" stroke-width="1.1" opacity="0.75"/>
+  <circle cx="32" cy="22" r="2.4" fill="#1a2238" stroke="#c9762b" stroke-width="1"/>
+  <path d="M32 19.5 C28.5 14 23.5 10.5 19 8.5" fill="none" stroke="#c9762b" stroke-width="1.7" stroke-linecap="round"/>
+  <text x="32" y="47" text-anchor="middle" font-family="Gowun Batang, serif" font-size="20" font-weight="bold" fill="#1a2238">洪</text>
+  <!-- 까마귀 한 마리 — 호패 위에 앉다 -->
+  <path d="M37 14 q0.8 -5.6 6.4 -6.8 q5.2 -1 7.6 2 q0.8 1.3 0.5 2.9 l5.6 1.6 l-6 1 q-1.1 3.2 -5.3 3.8 q-5.3 0.8 -8.8 -1.7 z"
+    fill="#141a2c" stroke="#c9762b" stroke-width="0.8" stroke-linejoin="round"/>
+  <path d="M37 14 l-8.8 -1.9 l9.6 -2.2 z" fill="#141a2c" stroke="#c9762b" stroke-width="0.7" stroke-linejoin="round"/>
+  <circle cx="47.8" cy="9.6" r="0.9" fill="#efe6d0"/>
+</svg>

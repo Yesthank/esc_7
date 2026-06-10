@@ -1,0 +1,966 @@
+{
+  "id": "honggildong",
+  "title": "부르지 못한 말",
+  "description": "허균 「홍길동전」 오마주 — 자객의 밤, 홍판서 댁의 서자. 부르지 못하는 호칭을 가슴에 묻고 집을 떠나, 조선을 흔들고 대궐에 들어간다. 마지막 자물쇠가 묻는 것은 보물이 아니다.",
+  "thumbnail": "/rooms/honggildong-thumb.png",
+  "timeLimit": 3600,
+  "startRoom": "room-byeoldang",
+  "rooms": [
+    {
+      "id": "room-byeoldang",
+      "name": "홍판서 댁 별당",
+      "background": "/rooms/bg-byeoldang.png",
+      "hotspots": [
+        {
+          "id": "room-byeoldang-h1",
+          "area": [
+            6,
+            18,
+            14,
+            36
+          ],
+          "label": "서가의 책갑",
+          "action": {
+            "type": "examine",
+            "text": "책갑 네 질이 제자리에 꽂혀 있지 않다 — 표지의 한 글자가 차례를 안다. 丁·甲·戊·乙, 그리고 질마다 새겨진 권수."
+          }
+        },
+        {
+          "id": "room-byeoldang-h2",
+          "area": [
+            21,
+            56,
+            10,
+            32
+          ],
+          "label": "문갑 자물쇠",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-ganji"
+          }
+        },
+        {
+          "id": "room-byeoldang-h3",
+          "area": [
+            56,
+            7,
+            12,
+            15
+          ],
+          "label": "책상 위 책력",
+          "action": {
+            "type": "examine",
+            "text": "펼친 채 둔 책력(冊曆) — 갑·을·병·정… 천간 열 자가 한자·독음·순번 세 줄로 나란히 적혀 있다. 癸가 열째다."
+          }
+        },
+        {
+          "id": "room-byeoldang-h4",
+          "area": [
+            70,
+            20,
+            13,
+            32
+          ],
+          "label": "어머니의 복주머니",
+          "action": {
+            "type": "examine",
+            "text": "어머니 춘섬이 수놓은 복주머니. 자음 넉 자가 흩어져 있는데, 수실 한 가닥이 글자에서 글자로 이어진다 — 가장 진한 매듭이 처음이다."
+          }
+        },
+        {
+          "id": "room-byeoldang-h5",
+          "area": [
+            37,
+            6,
+            11,
+            13
+          ],
+          "label": "언문 반절표 족자",
+          "action": {
+            "type": "examine",
+            "text": "서당 가나다 익힘 차트로 걸어 둔 언문 반절표 족자 — ㄱ부터 ㅎ까지, 낱자 아래 순번이 적혀 있다."
+          }
+        },
+        {
+          "id": "room-byeoldang-h6",
+          "area": [
+            81.5,
+            56,
+            9,
+            32
+          ],
+          "label": "복주머니 함",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-pouch"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-ganji-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-byeoldang-h7",
+          "area": [
+            70,
+            8,
+            10,
+            10
+          ],
+          "label": "복주머니 안감",
+          "action": {
+            "type": "examine",
+            "text": "함이 열리자 복주머니 안감이 드러난다 — 바늘땀으로 수놓은 작은 수(數)들이 짝을 지어 있다. 앞 수와 뒤 수. 뜻은 아직 몰라도, 수첩에 옮겨 적는다."
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-pouch-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-byeoldang-h8",
+          "area": [
+            42,
+            22,
+            12,
+            58
+          ],
+          "label": "담장 뒷문",
+          "action": {
+            "type": "move",
+            "roomId": "room-cave"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-pouch-solved",
+            "value": true
+          }
+        }
+      ],
+      "nav": {},
+      "entryDialog": "dlg-room-byeoldang",
+      "entryEffect": "flicker"
+    },
+    {
+      "id": "room-cave",
+      "name": "도적 소굴",
+      "background": "/rooms/bg-cave.png",
+      "hotspots": [
+        {
+          "id": "room-cave-h1",
+          "area": [
+            6,
+            20,
+            14,
+            32
+          ],
+          "label": "바위의 윷 기록",
+          "action": {
+            "type": "examine",
+            "text": "잔치 바위에 던져 둔 윷 네 판의 끗이 글자로 새겨져 있다 — 걸·모·개·윷. 윷판 위 말 하나가 출발 칸에 놓여 있다."
+          }
+        },
+        {
+          "id": "room-cave-h2",
+          "area": [
+            25,
+            7,
+            11,
+            16
+          ],
+          "label": "바위에 새긴 윷판",
+          "action": {
+            "type": "examine",
+            "text": "바위에 새긴 윷판 — 출발 칸에서 길이 이어지고, 칸마다 작은 숫자가 패여 있다. 말은 길을 따라 걷는 물건이다."
+          }
+        },
+        {
+          "id": "room-cave-h3",
+          "area": [
+            21,
+            56,
+            10,
+            32
+          ],
+          "label": "돌문 윷판",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-yut"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-pouch-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-cave-h4",
+          "area": [
+            37,
+            6,
+            11,
+            13
+          ],
+          "label": "귀퉁이의 걸음수 새김",
+          "action": {
+            "type": "examine",
+            "text": "윷판 귀퉁이의 새김 — 도1 · 개2 · 걸3 · 윷4 · 모5. 패는 셈이 아니라 걸음이다."
+          }
+        },
+        {
+          "id": "room-cave-h5",
+          "area": [
+            69,
+            22,
+            14,
+            28
+          ],
+          "label": "노름판의 산가지",
+          "action": {
+            "type": "examine",
+            "text": "장사들이 벌이던 노름판 — 산대가 세로로 늘어서 있다. 다섯을 넘는 것엔 획이 하나 누웠다. 묶음마다 엽전이 한 닢, 두 닢… 차례 패처럼 놓였다."
+          }
+        },
+        {
+          "id": "room-cave-h6",
+          "area": [
+            56,
+            6,
+            12,
+            14
+          ],
+          "label": "벽의 산가지 숫자표",
+          "action": {
+            "type": "examine",
+            "text": "벽에 걸린 산가지 숫자표 — 하나부터 아홉까지 세로식 막대 배열이 그려져 있다."
+          }
+        },
+        {
+          "id": "room-cave-h7",
+          "area": [
+            81.5,
+            56,
+            9,
+            32
+          ],
+          "label": "군량 궤",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-sangaji"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-yut-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-cave-h8",
+          "area": [
+            42,
+            20,
+            12,
+            60
+          ],
+          "label": "폭포 뒤 통로",
+          "action": {
+            "type": "move",
+            "roomId": "room-haeinsa"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-sangaji-solved",
+            "value": true
+          }
+        }
+      ],
+      "nav": {
+        "left": "room-byeoldang"
+      },
+      "entryDialog": "dlg-room-cave",
+      "entryEffect": "blackout"
+    },
+    {
+      "id": "room-haeinsa",
+      "name": "해인사 마당",
+      "background": "/rooms/bg-haeinsa.png",
+      "hotspots": [
+        {
+          "id": "room-haeinsa-h1",
+          "area": [
+            6,
+            18,
+            13,
+            34
+          ],
+          "label": "시주 명부",
+          "action": {
+            "type": "examine",
+            "text": "시주 명부 네 줄 — 인시에 든 시주 닷 냥, 사시 두 냥, 신시 아홉 냥, 해시 석 냥. 시각의 글자가 신상의 명문과 같다."
+          }
+        },
+        {
+          "id": "room-haeinsa-h2",
+          "area": [
+            24,
+            6,
+            11,
+            15
+          ],
+          "label": "신상과 해 그림자",
+          "action": {
+            "type": "examine",
+            "text": "석탑 기단의 십이지 신상 — 발치마다 시각 글자가 명문되어 있다. 해 그림자가 마당을 천천히 쓸며 신상을 차례로 짚는다: 신, 사, 인, 해."
+          }
+        },
+        {
+          "id": "room-haeinsa-h3",
+          "area": [
+            21,
+            56,
+            10,
+            32
+          ],
+          "label": "시주함",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-shadow"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-sangaji-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-haeinsa-h4",
+          "area": [
+            60,
+            17,
+            11,
+            26
+          ],
+          "label": "단청 연꽃 토큰",
+          "action": {
+            "type": "examine",
+            "text": "대웅전 단청에서 떨어진 연꽃 토큰 다섯 — 빛깔마다 글자가 하나씩이다. 황에 대, 흑에 경, 청에 팔, 백에 장, 적에 만."
+          }
+        },
+        {
+          "id": "room-haeinsa-h5",
+          "area": [
+            72.5,
+            17,
+            11,
+            26
+          ],
+          "label": "오방신장 행렬 탱화",
+          "action": {
+            "type": "examine",
+            "text": "오방신장이 한 줄로 행진하는 탱화 — 동의 청, 남의 적, 가운데 황, 서의 백, 북의 흑. 신장 발치에 1부터 5까지 번호가 적혀 있다. 가운데 신장이 셋째다."
+          }
+        },
+        {
+          "id": "room-haeinsa-h6",
+          "area": [
+            55,
+            5,
+            10,
+            12
+          ],
+          "label": "대웅전 머리초 띠",
+          "action": {
+            "type": "examine",
+            "text": "대웅전 들보의 머리초 띠 — 청·적·황·백·흑 다섯 빛깔이 같은 차례로 되풀이된다. 행렬의 차례와 같다."
+          }
+        },
+        {
+          "id": "room-haeinsa-h7",
+          "area": [
+            81.5,
+            56,
+            9,
+            32
+          ],
+          "label": "성물장 자물쇠",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-obang"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-shadow-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-haeinsa-h8",
+          "area": [
+            42,
+            21,
+            12,
+            57
+          ],
+          "label": "일주문 뒷길",
+          "action": {
+            "type": "move",
+            "roomId": "room-gamyeong"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-obang-solved",
+            "value": true
+          }
+        }
+      ],
+      "nav": {
+        "left": "room-cave"
+      },
+      "entryDialog": "dlg-room-haeinsa"
+    },
+    {
+      "id": "room-gamyeong",
+      "name": "함경 읍성 감영",
+      "background": "/rooms/bg-gamyeong.png",
+      "hotspots": [
+        {
+          "id": "room-gamyeong-h1",
+          "area": [
+            6,
+            18,
+            14,
+            34
+          ],
+          "label": "사대문의 괘 깃발",
+          "action": {
+            "type": "examine",
+            "text": "네 문루에 방(榜)이 하루걸러 나붙었다 — 동문 둘째 날, 남문 첫째 날, 서문 셋째 날, 북문 넷째 날. 문루마다 괘 깃발이 펄럭인다."
+          }
+        },
+        {
+          "id": "room-gamyeong-h2",
+          "area": [
+            41,
+            5,
+            18,
+            15
+          ],
+          "label": "관상감 팔괘도 병풍",
+          "action": {
+            "type": "examine",
+            "text": "관상감 팔괘도 병풍 — 여덟 괘가 기호·이름·순번으로 나란하다. ☰건1에서 ☷곤8까지."
+          }
+        },
+        {
+          "id": "room-gamyeong-h3",
+          "area": [
+            21,
+            56,
+            10,
+            32
+          ],
+          "label": "문루 자물쇠",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-trigram"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-obang-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-gamyeong-h4",
+          "area": [
+            70,
+            22,
+            13,
+            30
+          ],
+          "label": "목활자함",
+          "action": {
+            "type": "examine",
+            "text": "체포 방을 찍던 목활자함 — 활자 글자면이 거울처럼 뒤집혀 있다. 초성과 중성이 짝을 지어 조판틀 칸에 꽂혔는데, 칸의 차례가 어지럽다."
+          }
+        },
+        {
+          "id": "room-gamyeong-h5",
+          "area": [
+            56,
+            7,
+            12,
+            14
+          ],
+          "label": "조합 격자 인쇄 견본",
+          "action": {
+            "type": "examine",
+            "text": "활자장 벽의 인쇄 견본 — 초성과 중성이 만나 한 글자가 되는 조합 격자다. 찍어야 바로 선다."
+          }
+        },
+        {
+          "id": "room-gamyeong-h6",
+          "area": [
+            81.5,
+            56,
+            9,
+            32
+          ],
+          "label": "활자함 자물쇠",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-type"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-trigram-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-gamyeong-h7",
+          "area": [
+            42,
+            22,
+            12,
+            56
+          ],
+          "label": "북문",
+          "action": {
+            "type": "move",
+            "roomId": "room-daegwol"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-type-solved",
+            "value": true
+          }
+        }
+      ],
+      "nav": {
+        "left": "room-haeinsa"
+      },
+      "entryDialog": "dlg-room-gamyeong"
+    },
+    {
+      "id": "room-daegwol",
+      "name": "대궐 앞뜰",
+      "background": "/rooms/bg-daegwol.png",
+      "hotspots": [
+        {
+          "id": "room-daegwol-h1",
+          "area": [
+            6,
+            20,
+            14,
+            34
+          ],
+          "label": "여덟 길동",
+          "action": {
+            "type": "examine",
+            "text": "여덟 길동이 쭉 들어섰다. 똑같은 얼굴, 똑같은 옷 — 그러나 일곱은 발목에 짚이 비져나오고, 주머니 매듭이 제각각이다. 호패는 저마다 품에 가려 보이지 않는다."
+          }
+        },
+        {
+          "id": "room-daegwol-h2",
+          "area": [
+            29,
+            6,
+            12,
+            14
+          ],
+          "label": "간수의 증언",
+          "action": {
+            "type": "examine",
+            "text": "압송 간수의 증언이 적힌 조서 — \"제웅은 발목에 짚이 비져나옵니다. 옷섶 밖으로 가닥이 보이지요.\""
+          }
+        },
+        {
+          "id": "room-daegwol-h3",
+          "area": [
+            56,
+            7,
+            12,
+            14
+          ],
+          "label": "화공의 메모",
+          "action": {
+            "type": "examine",
+            "text": "용모파기를 그린 화공의 메모 — \"환약 주머니의 매듭 수와 자리가 저마다 다르다. 호패의 새김은 그 몸의 표식과 맞물려야 참이다.\""
+          }
+        },
+        {
+          "id": "room-daegwol-h4",
+          "area": [
+            21,
+            56,
+            10,
+            32
+          ],
+          "label": "호패 다이얼",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "hg-jeung"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-type-solved",
+            "value": true
+          }
+        },
+        {
+          "id": "room-daegwol-h5",
+          "area": [
+            70,
+            22,
+            13,
+            30
+          ],
+          "label": "돌려받은 복주머니",
+          "action": {
+            "type": "examine",
+            "text": "군중 속 백성이 말없이 쥐여 준 어머니의 복주머니 — 별당에서 본 그 물건이다. 안감의 수들은 이미 수첩에 적어 두었다. 그 속에 손바닥만 한 책 한 권이 접혀 있다."
+          }
+        },
+        {
+          "id": "room-daegwol-h6",
+          "area": [
+            81.5,
+            56,
+            9,
+            32
+          ],
+          "label": "어머니의 책",
+          "action": {
+            "type": "puzzle",
+            "puzzleId": "honggildong-cipher"
+          },
+          "activeWhen": {
+            "type": "flag",
+            "flagId": "hg-jeung-solved",
+            "value": true
+          }
+        }
+      ],
+      "nav": {},
+      "entryDialog": "dlg-room-daegwol",
+      "entryEffect": "lightning"
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "keypad",
+      "id": "hg-ganji",
+      "title": "문갑 자물쇠",
+      "answer": "4216",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-ganji-solved",
+        "flagValue": true,
+        "text": "책갑 네 질이 제 차례를 찾아 꽂힌다. 문갑이 딸깍 — 서랍 안, 담장 뒷문의 빗장 열쇠."
+      },
+      "solvedFlag": "hg-ganji-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-pouch",
+      "title": "복주머니 함",
+      "answer": "9715",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-pouch-solved",
+        "flagValue": true,
+        "text": "복주머니 함이 소리 없이 열린다. 어머니의 바늘땀 — 복주머니 안감에 작은 수(數)들이 짝을 지어 수놓여 있다. 뜻은 아직 몰라도, 수첩에 옮겨 적는다."
+      },
+      "solvedFlag": "hg-pouch-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-yut",
+      "title": "돌문 윷판",
+      "answer": "8275",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-yut-solved",
+        "flagValue": true,
+        "text": "말이 윷판을 걸어 마지막 칸에 멎는다. 등 뒤의 돌문이 부시시 밀려 열리고 — 횃불 빛이 쏟아진다."
+      },
+      "solvedFlag": "hg-yut-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-sangaji",
+      "title": "군량 궤",
+      "answer": "8264",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-sangaji-solved",
+        "flagValue": true,
+        "text": "산대 셈이 맞아떨어지자 군량 궤의 자물쇠가 툭 떨어진다. 곡식 위 — 해인사 잔치로 보낼 예물 목록이 놓여 있다."
+      },
+      "solvedFlag": "hg-sangaji-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-shadow",
+      "title": "시주함",
+      "answer": "9253",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-shadow-solved",
+        "flagValue": true,
+        "text": "해 그림자가 마지막 신상을 짚는 순간, 시주함 바닥이 열린다. 시주 명부 아래 — 대웅전 쪽문의 열쇠."
+      },
+      "solvedFlag": "hg-shadow-solved"
+    },
+    {
+      "type": "text-input",
+      "id": "hg-obang",
+      "title": "성물장 자물쇠",
+      "prompt": "오방신장이 행진하는 차례로 — 빛깔마다 한 글자씩 모아 다섯 글자를 이뤄라",
+      "answer": "팔만대장경",
+      "placeholder": "5글자",
+      "isKorean": true,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-obang-solved",
+        "flagValue": true,
+        "text": "다섯 빛깔이 한 줄로 모여 한 단어가 된다. 성물장이 열리고 — 잔치 소동의 그늘에서, 보물이 소리 없이 자루에 담긴다."
+      },
+      "solvedFlag": "hg-obang-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-trigram",
+      "title": "문루 자물쇠",
+      "answer": "6318",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-trigram-solved",
+        "flagValue": true,
+        "text": "네 폭 깃발의 괘가 차례로 제 수를 찾는다. 문루의 빗장이 내려앉고, 북문으로 가는 성벽 길이 열린다."
+      },
+      "solvedFlag": "hg-trigram-solved"
+    },
+    {
+      "type": "text-input",
+      "id": "hg-type",
+      "title": "활자함 자물쇠",
+      "prompt": "찍힌 활자는 바로 선다 — 초성과 중성을 조판틀 칸 차례로 합쳐 세 글자를 이뤄라",
+      "answer": "하리라",
+      "placeholder": "3글자",
+      "isKorean": true,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-type-solved",
+        "flagValue": true,
+        "text": "먹을 먹인 활자가 종이에 찍히자, 뒤집혔던 글자들이 바로 선다. 활자함 바닥에서 옥문 열쇠가 나온다 — 묶였던 백성들이 어둠 속으로 풀려나고, 길동이는 북문을 나선다."
+      },
+      "solvedFlag": "hg-type-solved"
+    },
+    {
+      "type": "keypad",
+      "id": "hg-jeung",
+      "title": "호패 다이얼",
+      "answer": "3719",
+      "digits": 4,
+      "reward": {
+        "type": "flag",
+        "flagId": "hg-jeung-solved",
+        "flagValue": true,
+        "text": "이형(異形)의 하나를 짚어 호패를 여는 순간 — 그가 짚단으로 허물어진다. 이어 일곱도 차례로, 죄다 짚으로 만든 제웅으로 무너져 내린다.\n무너지기 직전, 여덟 손이 일제히 혼절한 홍판서의 입에 환약을 밀어 넣었다 — 대감의 가슴이 다시 오르내리기 시작한다.\n진짜는, 처음부터 이 뜰에 없었다.",
+        "effect": "shake"
+      },
+      "solvedFlag": "hg-jeung-solved"
+    },
+    {
+      "type": "text-input",
+      "id": "honggildong-cipher",
+      "title": "암호 노트",
+      "prompt": "건네받은 복주머니 속 — 손바닥만 한 책 한 권이 접혀 들어 있다. 어머니 춘섬이 아들의 일을 한 자 한 자 적어 간직한 수기다.\n수첩에 옮겨 둔 안감의 수들이 짝을 이뤄 책의 어절을 가리킨다. 수를 놓은 손과 책을 쓴 손이 같다 — 글자와 글자 사이에, 못다 부른 말이 숨어 있다.\n책이 묻는다 — 네가 평생 부르지 못한 말을.",
+      "answer": "아버지",
+      "placeholder": "3글자",
+      "isKorean": true,
+      "solvedFlag": "cipher-solved",
+      "reward": {
+        "type": "flag",
+        "flagId": "cipher-solved",
+        "flagValue": true,
+        "text": "마지막 자물쇠가 묻는 것은 보물도 이름도 아니었다 — 평생 부르지 못한 호칭 그 자체다. 여덟 제웅이 무너지고, 소생한 아버지가 \"호부호형을 허하노라\" 이르자, 길동은 좌표가 가리킨 세 글자로 대답한다 — 아버지. 이름을 버린 자(esc_4)와 이름을 되찾은 자(esc_6)를 지나, 이번에는 부름이 돌아온다. 부르지 못하던 말을, 네 손으로 입력한다.",
+        "effect": "lightning"
+      }
+    }
+  ],
+  "items": [],
+  "dialogs": [
+    {
+      "id": "dlg-room-byeoldang",
+      "lines": [
+        {
+          "text": "까마귀가 세 번 울고 그쳤다 — 흉한 징조다.\n별당 문풍지 너머, 칼 찬 그림자가 마당을 가로지른다. 관상 보는 자가 다녀간 뒤로, 이 밤이 올 것을 너는 알고 있었다.\n방 안 — 어머니 춘섬이 수놓은 복주머니 함, 대감의 문갑, 그리고 펼친 채 둔 책력.\n아버님을 아버님이라 부르지 못하고 형님을 형님이라 부르지 못하는 집. 오늘 밤, 담장 뒷문으로 이 집을 떠난다."
+        }
+      ]
+    },
+    {
+      "id": "dlg-room-cave",
+      "lines": [
+        {
+          "text": "폭포가 절벽을 때리는 골짜기 — 물줄기 뒤에 돌문이 숨어 있다.\n잔치 바위에는 윷판이 새겨졌고, 던져 둔 윷의 끗이 글자로 나란히 기록되어 있다. 여러 장사가 모여앉아 잔치를 하던 자리다.\n돌문 너머의 무리에게는 괴수의 자리가 비어 있다 — 힘과 슬기를 보인 자만이 그 자리에 앉는다."
+        }
+      ]
+    },
+    {
+      "id": "dlg-room-haeinsa",
+      "lines": [
+        {
+          "text": "해인사 일주문 — 쌀 스무섬을 가져온 귀공자의 잔치가 벌어지는 날이다.\n마당에는 시각 글자를 새긴 십이지 신상이 늘어섰고, 해 그림자가 그 발치를 천천히 쓸고 지나간다.\n대웅전 단청 아래 성물장은 굳게 닫혔다. 밥상 위 — 누군가 일부러 섞어 둔 돌. 호령 한 번이면 절 안이 뒤집힌다."
+        }
+      ]
+    },
+    {
+      "id": "dlg-room-gamyeong",
+      "lines": [
+        {
+          "text": "함경 읍성 — 사대문 문루에 방(榜)이 하루걸러 나붙었다. 길동을 잡으라는 글이다.\n감영 옥에는 죄 없는 백성이 묶여 있고, 창고의 곡식은 굶는 집들로 가야 한다.\n문루마다 괘 깃발이 바람에 펄럭이고, 방을 찍던 목활자함이 마당에 부려져 있다 — 글자면이 거울처럼 뒤집힌 채."
+        }
+      ]
+    },
+    {
+      "id": "dlg-room-daegwol",
+      "lines": [
+        {
+          "text": "쇠사슬에 묶여 압송된 길동 — 그조차 짚으로 빚은 제웅이었다. 진짜 너는 변장한 채, 절하는 백성들 틈에 섞여 대궐 앞뜰에 선다.\n군중 속에서 백성 하나가 말없이 손에 쥐여 주고 사라진다 — 별당에서 보았던, 어머니의 복주머니.\n뜰 안에는 여덟 길동이 쭉 들어섰다. 똑같은 얼굴, 똑같은 옷 — 그러나 일곱은 발목에 짚이 비져나오고, 주머니 매듭이 제각각이다."
+        }
+      ]
+    }
+  ],
+  "hints": [
+    {
+      "forPuzzle": "hg-ganji",
+      "steps": [
+        "책갑 표지의 글자는 읽으라 새긴 게 아니라 차례다.",
+        "책력대로 갑·을·병·정… 순서로 세워, 그 권수를 차례로 읽어라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-pouch",
+      "steps": [
+        "수실 한 가닥을 처음 매듭부터 따라가라.",
+        "끈이 지나는 차례로 낱자를 읽고, 반절표에서 그 순번을 찾아라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-yut",
+      "steps": [
+        "윷 패는 점수가 아니라 걸음이다.",
+        "말을 도1·개2…모5 칸씩 차례로 옮겨, 멈춘 칸의 숫자를 읽어라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-sangaji",
+      "steps": [
+        "다섯을 넘는 산대엔 획이 하나 위로 누웠다.",
+        "막대 배열을 숫자표와 대조하라 — 차례는 엽전 닢 수다."
+      ]
+    },
+    {
+      "forPuzzle": "hg-shadow",
+      "steps": [
+        "해 그림자가 먼저 가리키는 신상부터.",
+        "그림자 순서대로, 그 시각의 시주 냥을 차례로 읽어라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-obang",
+      "steps": [
+        "오방신장은 한 줄로 행진한다.",
+        "동·남·가운데·서·북 차례로 색마다 한 글자씩 모아라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-trigram",
+      "steps": [
+        "네 문루의 방에 적힌 날 차례를 보라.",
+        "방이 먼저 나붙은 문부터, 그 깃발의 괘를 팔괘도에서 찾아라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-type",
+      "steps": [
+        "활자는 거울처럼 뒤집혀 있다 — 찍어야 바로 선다.",
+        "바로 선 초성·중성을 조판틀 칸 차례로 한 글자씩 합쳐라."
+      ]
+    },
+    {
+      "forPuzzle": "hg-jeung",
+      "steps": [
+        "일곱은 단서와 어긋난다 — 발목의 짚, 주머니 매듭을 보라.",
+        "셋 다 어긋나지 않는 하나를 짚어 그 호패를 열어라."
+      ]
+    }
+  ],
+  "clearCondition": {
+    "type": "and",
+    "conditions": [
+      {
+        "type": "flag",
+        "flagId": "hg-ganji-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-pouch-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-yut-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-sangaji-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-shadow-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-obang-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-trigram-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-type-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "hg-jeung-solved",
+        "value": true
+      },
+      {
+        "type": "flag",
+        "flagId": "cipher-solved",
+        "value": true
+      }
+    ]
+  },
+  "clearMessage": "마지막 자물쇠가 묻는 것은 보물도 이름도 아니었다 — 평생 부르지 못한 호칭 그 자체다. 여덟 제웅이 무너지고, 소생한 아버지가 \"호부호형을 허하노라\" 이르자, 길동은 좌표가 가리킨 세 글자로 대답한다 — 아버지. 이름을 버린 자(esc_4)와 이름을 되찾은 자(esc_6)를 지나, 이번에는 부름이 돌아온다. 부르지 못하던 말을, 네 손으로 입력한다."
+}
