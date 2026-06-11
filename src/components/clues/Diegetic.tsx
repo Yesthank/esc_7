@@ -622,19 +622,20 @@ function Gyeokja({ clue }: { clue: TokensClue }) {
 
 // ── R5 대궐 앞뜰 — L9 여덟 길동 ─────────────────────────────────────────
 
-// 호패 새김·정합 데이터 — clues.json 토큰엔 발목·매듭 관측(tag)만 있고 호패 값이 없다.
+// 호패 새김 데이터 — clues.json 토큰엔 발목·매듭 관측(tag)만 있고 호패 값이 없다.
 // 게임 정합(정답 3719 + 미끼 7종 자리 숫자 공유)을 위해 fixture 의 값을 그대로 옮겨 적는다.
 // 출처: maker/game-forge/fixtures/honggildong-game.ts JEUNG_MATRIX·HANJA_DIGITS
-// (설계서 §2 L9 8×3 모순 매트릭스). fixture 수정 시 이 표도 동기 필수 — 수동검수 체크리스트 항목.
-const JEUNG_HOPAE: Record<string, { hopae: string; fit: boolean }> = {
-  '길동-1': { hopae: '3719', fit: true },
-  '길동-2': { hopae: '3917', fit: true },
-  '길동-3': { hopae: '7193', fit: true },
-  '길동-4': { hopae: '1937', fit: false },
-  '길동-5': { hopae: '9371', fit: true },
-  '길동-6': { hopae: '8719', fit: false },
-  '길동-7': { hopae: '3164', fit: false },
-  '길동-8': { hopae: '5283', fit: false },
+// (설계서 §2 L9 8×2 모순 매트릭스 — v2.2 직관화로 호패 정합 축 폐지).
+// fixture 수정 시 이 표도 동기 필수 — 수동검수 체크리스트 항목.
+const JEUNG_HOPAE: Record<string, string> = {
+  '길동-1': '3719',
+  '길동-2': '3917',
+  '길동-3': '7193',
+  '길동-4': '1937',
+  '길동-5': '9371',
+  '길동-6': '8719',
+  '길동-7': '3164',
+  '길동-8': '5283',
 }
 const HANJA_DIGIT: Record<string, string> = {
   '1': '一', '2': '二', '3': '三', '4': '四', '5': '五',
@@ -653,18 +654,19 @@ function GilFigure({ straw, knotOk, sel }: { straw: boolean; knotOk: boolean; se
       {/* 도포 */}
       <path d="M-10 21 Q0 17 10 21 L13.5 50 Q0 54.5 -13.5 50 Z" fill="#76849f" stroke="#2c3142" strokeWidth="1" />
       <path d="M-12 33 Q0 36 12 33" fill="none" stroke="#3a4258" strokeWidth="1.4" />
-      {/* 환약 주머니 + 매듭(가지런 vs 어긋남) */}
-      <circle cx="6.5" cy="39.5" r="4.2" fill="#a14a5c" stroke="#4a1c28" strokeWidth="0.8" />
+      {/* 환약 주머니 + 매듭 — 가지런한 쌍고름(나비꼴 대칭) vs 어긋나게 늘어진 외고름(한쪽 쏠림) */}
+      <circle cx="6.5" cy="40" r="4.6" fill="#a14a5c" stroke="#4a1c28" strokeWidth="0.8" />
       {knotOk ? (
-        <g stroke={GOLD_THREAD} strokeWidth="1.1" strokeLinecap="round">
-          <line x1="5" y1="33" x2="5" y2="36.6" />
-          <line x1="8" y1="33" x2="8" y2="36.6" />
+        <g stroke={GOLD_THREAD} strokeWidth="1.2" fill="none" strokeLinecap="round">
+          <ellipse cx="4" cy="33.6" rx="2.4" ry="1.7" />
+          <ellipse cx="9" cy="33.6" rx="2.4" ry="1.7" />
+          <line x1="6.5" y1="34.6" x2="5.4" y2="37.2" />
+          <line x1="6.5" y1="34.6" x2="7.8" y2="37.2" />
         </g>
       ) : (
-        <g stroke={GOLD_THREAD} strokeWidth="1.1" strokeLinecap="round">
-          <line x1="4.5" y1="33.4" x2="7" y2="36.8" />
-          <line x1="8.5" y1="33" x2="6" y2="37" />
-          <line x1="6" y1="32.6" x2="9.8" y2="35.2" />
+        <g stroke={GOLD_THREAD} strokeWidth="1.2" fill="none" strokeLinecap="round">
+          <ellipse cx="3.6" cy="33.4" rx="2" ry="1.5" />
+          <path d="M6.5 34.4 Q10.5 38 9.6 43.5 Q9.2 46 10.6 47.5" />
         </g>
       )}
       {/* 다리 + 짚신 */}
@@ -672,13 +674,15 @@ function GilFigure({ straw, knotOk, sel }: { straw: boolean; knotOk: boolean; se
       <rect x="2.5" y="50" width="4.5" height="9.5" fill="#cfc6b2" />
       <ellipse cx="-4.8" cy="61" rx="4" ry="1.9" fill="#8a7c5c" />
       <ellipse cx="4.8" cy="61" rx="4" ry="1.9" fill="#8a7c5c" />
-      {/* 발목의 짚 가닥(제웅 표식) */}
+      {/* 발목의 짚 가닥(제웅 표식) — 다발로 비져나와 한눈에 보인다 */}
       {straw && (
-        <g stroke="#d9b25a" strokeWidth="1.3" strokeLinecap="round">
-          <line x1="-5" y1="56" x2="-10.5" y2="53" />
-          <line x1="-4.5" y1="57.4" x2="-10.5" y2="58" />
-          <line x1="4.6" y1="56" x2="10.4" y2="53.4" />
-          <line x1="5" y1="57.4" x2="10.8" y2="58.2" />
+        <g stroke="#e4bd5e" strokeWidth="1.4" strokeLinecap="round">
+          <line x1="-5" y1="55.4" x2="-11" y2="52" />
+          <line x1="-5" y1="56.6" x2="-11.6" y2="56" />
+          <line x1="-4.5" y1="57.8" x2="-10.6" y2="59.6" />
+          <line x1="4.6" y1="55.6" x2="10.8" y2="52.4" />
+          <line x1="5" y1="56.8" x2="11.4" y2="56.4" />
+          <line x1="4.6" y1="58" x2="10.4" y2="59.8" />
         </g>
       )}
     </g>
@@ -712,40 +716,84 @@ function Jeung({ clue }: { clue: TokensClue }) {
           )
         })}
       </Scene>
-      {selToken && selHopae ? (
-        <div style={{ marginTop: 10 }}>
-          <Scene vb="0 0 210 152">
-            <rect x="0" y="0" width="210" height="152" rx="6" fill="#10141f" />
-            <g transform="translate(58 12) scale(1.85)">
-              <GilFigure straw={obs(selToken.tag).straw} knotOk={obs(selToken.tag).knotOk} />
-            </g>
-            {/* 호패 — 지목한 인물의 것만 드러난다(한자 숫자 새김) */}
-            <g transform="translate(132 20)">
-              <line x1="20" y1="-6" x2="20" y2="8" stroke="#6a5a3c" strokeWidth="1.6" />
-              <rect x="0" y="2" width="40" height="112" rx="5" fill="#a8854e" stroke="#3c2a14" strokeWidth="1.6" />
-              <circle cx="20" cy="12" r="3.2" fill="#10141f" />
-              {selHopae.hopae.split('').map((d, k) => (
-                <text key={k} x="20" y={37 + k * 22} textAnchor="middle" fontSize="16.5" fontFamily="serif"
-                  fontWeight="700" fill="#241608">{HANJA_DIGIT[d] ?? d}</text>
-              ))}
-            </g>
-          </Scene>
-          <p style={{ margin: '7px 0 0', fontSize: 12, lineHeight: 1.7, color: '#d8cfae', textAlign: 'center' }}>
-            {selToken.text} — {selToken.tag}
-            <br />
-            {selHopae.fit ? '호패 새김이 몸의 표식과 맞물린다.' : '호패 새김이 몸의 표식과 어긋난다.'}
-          </p>
-        </div>
-      ) : (
+      {selToken && selHopae ? (() => {
+        const o = obs(selToken.tag)
+        const reasons = [
+          ...(o.straw ? ['발목에 짚이 비져나왔다'] : []),
+          ...(!o.knotOk ? ['주머니 매듭이 어긋났다'] : []),
+        ]
+        const isJeung = reasons.length > 0
+        return (
+          <div style={{ marginTop: 10 }}>
+            <Scene vb="0 0 210 152">
+              <rect x="0" y="0" width="210" height="152" rx="6" fill="#10141f" />
+              <g transform="translate(58 12) scale(1.85)">
+                <GilFigure straw={o.straw} knotOk={o.knotOk} />
+              </g>
+              {/* 호패 — 지목한 인물의 것만 드러난다(한자 숫자 새김) */}
+              <g transform="translate(132 20)" opacity={isJeung ? 0.55 : 1}>
+                <line x1="20" y1="-6" x2="20" y2="8" stroke="#6a5a3c" strokeWidth="1.6" />
+                <rect x="0" y="2" width="40" height="112" rx="5" fill="#a8854e" stroke="#3c2a14" strokeWidth="1.6" />
+                <circle cx="20" cy="12" r="3.2" fill="#10141f" />
+                {selHopae.split('').map((d, k) => (
+                  <text key={k} x="20" y={37 + k * 22} textAnchor="middle" fontSize="16.5" fontFamily="serif"
+                    fontWeight="700" fill="#241608">{HANJA_DIGIT[d] ?? d}</text>
+                ))}
+              </g>
+            </Scene>
+            <p style={{ margin: '7px 0 0', fontSize: 12, lineHeight: 1.7, color: isJeung ? '#b8a98c' : '#e8d8a8', textAlign: 'center' }}>
+              {selToken.text} — {selToken.tag}
+              <br />
+              {isJeung
+                ? `${reasons.join(', ')} — 제웅이다.`
+                : '짚도 매듭도 멀쩡하다 — 여덟 중 이놈만 다르다. 호패를 읽어라.'}
+            </p>
+          </div>
+        )
+      })() : (
         <p style={{ margin: '8px 0 0', fontSize: 11.5, fontStyle: 'italic', color: '#8a90a8', textAlign: 'center' }}>
-          인물을 짚으면 품에 가려진 호패를 살필 수 있다.
+          발목의 짚과 주머니의 매듭을 견주어 보라 — 인물을 짚으면 품에 가려진 호패가 보인다.
         </p>
       )}
     </div>
   )
 }
 
-// ── 레지스트리 — clues.json variant 20종과 1:1 (빌드 게이트 검증 대상) ──
+/** 화공의 메모 — 매듭 비교 그림(v2.2): 가지런한 쌍고름 vs 어긋난 외고름.
+ *  인물 자형의 매듭과 같은 모양을 한지 위에 크게 — "정상 매듭"의 기준을 공급한다. */
+function Maedeup({ clue }: { clue: TokensClue }) {
+  const ok = clue.tokens.find((t) => t.tag === 'ok')
+  const bad = clue.tokens.find((t) => t.tag === 'bad')
+  const INK = '#2c2620'
+  return (
+    <div className="dieg-paper">
+      <Scene vb="0 0 250 128">
+        <rect x="0" y="0" width="250" height="128" rx="3" fill="#efe6d0" />
+        <line x1="125" y1="12" x2="125" y2="106" stroke="#c9b896" strokeWidth="1" strokeDasharray="3 4" />
+        {/* 왼쪽 — 가지런한 쌍고름(나비꼴 대칭) ○ */}
+        <g transform="translate(62 30)" stroke={INK} strokeWidth="2.6" fill="none" strokeLinecap="round">
+          <circle cx="0" cy="34" r="15" fill="#efe6d0" strokeWidth="2.2" />
+          <ellipse cx="-8.5" cy="9" rx="8" ry="5.6" />
+          <ellipse cx="8.5" cy="9" rx="8" ry="5.6" />
+          <line x1="0" y1="12.5" x2="-4" y2="21" />
+          <line x1="0" y1="12.5" x2="4.5" y2="21" />
+        </g>
+        <circle cx="100" cy="34" r="9" fill="none" stroke="#3c6e4e" strokeWidth="2.4" />
+        {/* 오른쪽 — 어긋나게 늘어진 외고름 ✗ */}
+        <g transform="translate(187 30)" stroke={INK} strokeWidth="2.6" fill="none" strokeLinecap="round">
+          <circle cx="0" cy="34" r="15" fill="#efe6d0" strokeWidth="2.2" />
+          <ellipse cx="-9.5" cy="8" rx="6.6" ry="4.8" />
+          <path d="M0 12 Q13 23 10 41 Q9 49 14 55" />
+        </g>
+        <path d="M218 26 l13 14 M231 26 l-13 14" stroke="#a14a3c" strokeWidth="2.6" strokeLinecap="round" />
+        <text x="62" y="116" textAnchor="middle" fontSize="10.5" fontFamily="serif" fontWeight="700" fill={INK}>{ok?.text ?? '가지런'}</text>
+        <text x="187" y="116" textAnchor="middle" fontSize="10.5" fontFamily="serif" fontWeight="700" fill={INK}>{bad?.text ?? '어긋남'}</text>
+      </Scene>
+    </div>
+  )
+}
+
+// ── 레지스트리 — clues.json variant 21종과 1:1 (빌드 게이트 검증 대상) ──
 
 const BY_VARIANT: Record<string, (p: { clue: TokensClue; discovered: string[] }) => JSX.Element> = {
   bookcase: Bookcase,
@@ -768,6 +816,7 @@ const BY_VARIANT: Record<string, (p: { clue: TokensClue; discovered: string[] })
   types: Types,
   gyeokja: Gyeokja,
   jeung: Jeung,
+  maedeup: Maedeup,
 }
 
 export function Note({ clue }: { clue: NoteClue }) {
